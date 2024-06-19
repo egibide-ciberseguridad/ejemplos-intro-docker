@@ -1,0 +1,27 @@
+# docker-compose.yml
+
+services:
+
+  bd:
+    image: mariadb:11.4
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345Abcde
+      - MYSQL_DATABASE=egibide
+      - MYSQL_USER=egibide
+      - MYSQL_PASSWORD=12345Abcde
+    volumes:
+      - mariadb:/var/lib/mysql
+    expose:
+      - 3306
+
+  web:
+    image: php:8.3-apache
+    depends_on:
+      - bd
+    volumes:
+      - ./www:/var/www/html
+    ports:
+      - "80:80"
+
+volumes:
+  mariadb:
